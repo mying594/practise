@@ -1,21 +1,23 @@
-import Vue from 'vue'
+import Vue from "vue";
 
-import 'normalize.css/normalize.css' // A modern alternative to CSS resets
+import "normalize.css/normalize.css"; // A modern alternative to CSS resets
 
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
 // import locale from 'element-ui/lib/locale/lang/en' // lang i18n
-import '@babel/polyfill'
-import '@/styles/index.scss' // global css
+import "@babel/polyfill";
+import "@/styles/index.scss"; // global css
 
-import App from './App'
-import store from './store'
-import router from './router'
+import App from "./App";
+import store from "./store";
+import router from "./router";
 
-import '@/icons' // icon
-import '@/permission' // permission control
-import * as filters from './filters' // global filters
-import * as directive from './directive'
+import "@/icons"; // icon
+import "@/permission"; // permission control
+import * as filters from "./filters"; // global filters
+import * as directive from "./directive";
+import echarts from "@/components/Echarts";
+Vue.component("echarts", echarts);
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -33,23 +35,23 @@ import * as directive from './directive'
 // Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
 
-Vue.use(ElementUI)
+Vue.use(ElementUI);
 
 // 全局过滤器
 Object.keys(filters).forEach(key => {
-  Vue.filter(key, filters[key])
-})
+  Vue.filter(key, filters[key]);
+});
 
 // 自定义全局指令
 Object.keys(directive).forEach(key => {
-  Vue.directive(key, directive[key])
-})
+  Vue.directive(key, directive[key]);
+});
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
-  el: '#app',
+  el: "#app",
   router,
   store,
   render: h => h(App)
-})
+});

@@ -36,7 +36,19 @@ export const constantRoutes = [
     component: () => import("@/views/login/index"),
     hidden: true
   },
+  {
+    path: "/map",
+    component: Layout,
 
+    children: [
+      {
+        path: "",
+        name: "map",
+        component: () => import("@/views/map/index"),
+        meta: { title: "预报", icon: "dashboard" }
+      }
+    ]
+  },
   {
     path: "/home",
     component: Layout,
@@ -46,7 +58,7 @@ export const constantRoutes = [
         path: "",
         name: "home",
         component: () => import("@/views/home/index"),
-        meta: { title: "首页", icon: "dashboard" }
+        meta: { title: "检验", icon: "dashboard" }
       }
     ]
   },

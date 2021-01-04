@@ -16,10 +16,13 @@
     "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml"
   },
   "dependencies": {
+    "@mapbox/geojson-merge": "^1.1.1",
     "@tinymce/tinymce-vue": "^3.2.2",
     "axios": "^0.19.0",
     "clipboard": "^2.0.6",
     "codemirror": "^5.58.3",
+    "echarts": "^4.6.0",
+    "element-china-area-data": "^5.0.2",
     "element-ui": "2.13.0",
     "js-cookie": "2.2.0",
     "moment": "^2.24.0",
