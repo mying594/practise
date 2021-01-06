@@ -9,7 +9,7 @@
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">vue-template-cli</h3>
+        <h3 class="title">预报检验可视化系统</h3>
       </div>
 
       <el-form-item prop="username">
@@ -52,74 +52,74 @@
         style="width:100%;margin-bottom:30px;"
         @click.native.prevent="handleLogin"
       >登录</el-button>
-      <div class="tips">
+      <!-- <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
         <span>password: any</span>
-      </div>
+      </div>-->
     </el-form>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Login',
+  name: "Login",
   data() {
     return {
       loginForm: {
-        username: '',
-        password: ''
+        username: "",
+        password: ""
       },
       loginRules: {
         username: [
-          { required: true, trigger: 'blur', message: '请输入用户名' }
+          { required: true, trigger: "blur", message: "请输入用户名" }
         ],
-        password: [{ required: true, trigger: 'blur', message: '请输入密码' }]
+        password: [{ required: true, trigger: "blur", message: "请输入密码" }]
       },
       loading: false,
-      passwordType: 'password',
+      passwordType: "password",
       redirect: undefined
-    }
+    };
   },
   watch: {
     $route: {
       handler(route) {
-        this.redirect = route.query && route.query.redirect
+        this.redirect = route.query && route.query.redirect;
       },
       immediate: true
     }
   },
   methods: {
     showPwd() {
-      if (this.passwordType === 'password') {
-        this.passwordType = ''
+      if (this.passwordType === "password") {
+        this.passwordType = "";
       } else {
-        this.passwordType = 'password'
+        this.passwordType = "password";
       }
       this.$nextTick(() => {
-        this.$refs.password.focus()
-      })
+        this.$refs.password.focus();
+      });
     },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.loading = true
+          this.loading = true;
           this.$store
-            .dispatch('user/login', this.loginForm)
+            .dispatch("user/login", this.loginForm)
             .then(() => {
-              this.$router.push({ path: '/' })
-              this.loading = false
+              this.$router.push({ path: "/" });
+              this.loading = false;
             })
             .catch(() => {
-              this.loading = false
-            })
+              this.loading = false;
+            });
         } else {
-          console.log('error submit!!')
-          return false
+          console.log("error submit!!");
+          return false;
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -181,11 +181,12 @@ $light_gray: #eee;
   overflow: hidden;
 
   .login-form {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
     position: relative;
     width: 520px;
     max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
+    padding: 54px 35px 0;
+    margin: 235px auto;
     overflow: hidden;
   }
 

@@ -71,46 +71,6 @@ export const constantRoutes = [
     path: "/404",
     component: () => import("@/views/404"),
     hidden: true
-  },
-
-  {
-    path: "/ds",
-    component: Layout,
-    redirect: "/dashboard",
-    children: [
-      {
-        path: "dashboard",
-        name: "Dashboard",
-        component: () => import("@/views/dashboard/index"),
-        meta: { title: "Dashboard", icon: "dashboard" }
-      }
-    ]
-  },
-  {
-    path: "/directive",
-    component: Layout,
-    redirect: "/directive",
-    children: [
-      {
-        path: "directive",
-        name: "directive",
-        component: () => import("@/views/directive/directive"),
-        meta: { title: "directive", icon: "dashboard" }
-      }
-    ]
-  },
-  {
-    path: "/paste",
-    component: Layout,
-    redirect: "/paste",
-    children: [
-      {
-        path: "paste",
-        name: "paste",
-        component: () => import("@/views/paste/paste"),
-        meta: { title: "paste", icon: "dashboard" }
-      }
-    ]
   }
 ];
 

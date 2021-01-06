@@ -3,6 +3,14 @@
     <!-- <div class="center-disc box-inside">
       <radar :selected="selected"></radar>
     </div>-->
+    <div class="time-box">
+      <el-button
+        v-for="(item, index) in timeBtn"
+        :key="index"
+        @click="timeClick(item)"
+        :class="{'btn-active':curBtn==item}"
+      >{{item}}</el-button>
+    </div>
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="最高气温" name="1"></el-tab-pane>
       <el-tab-pane label="最低气温" name="2"></el-tab-pane>
@@ -57,6 +65,8 @@ export default {
   // },
   data() {
     return {
+      curBtn: "5日20时",
+      timeBtn: ["5日20时", "5日08时", "4日20时", "4日08时", "3日20时"],
       hideTip: false,
       activeName: "1",
       mapData: [
@@ -381,6 +391,9 @@ export default {
   },
   // created() {},
   methods: {
+    timeClick(btn) {
+      this.curBtn = btn;
+    },
     handleClick() {},
     mapClick(region) {
       this.$emit("mapClick", region);
@@ -618,6 +631,22 @@ export default {
   min-width: 227px;
   min-height: 198px;
 }
+.time-box {
+  position: absolute;
+  top: 50px;
+  z-index: 1;
+  left: 20px;
+  .el-button {
+    color: #fff;
+    height: 30px;
+    line-height: 8px;
+    background-color: hsla(0, 0%, 100%, 0.1);
+    border-color: #645aa5;
+  }
+  .btn-active {
+    background-color: rgba(64, 158, 255, 0.6);
+  }
+}
 </style>
 <style lang="scss">
 .map-main {
@@ -672,7 +701,7 @@ export default {
   }
   .bread {
     position: absolute;
-    top: 70px;
+    top: 50px;
     right: 5%;
     .el-breadcrumb__item {
       .el-breadcrumb__inner {
