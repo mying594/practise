@@ -11,6 +11,7 @@
         :class="{'btn-active':curBtn==item}"
       >{{item}}</el-button>
     </div>
+    <el-slider v-model="slider" :step="10" show-stops></el-slider>
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="最高气温" name="1"></el-tab-pane>
       <el-tab-pane label="最低气温" name="2"></el-tab-pane>
@@ -65,6 +66,12 @@ export default {
   // },
   data() {
     return {
+      slider: 0,
+      //  marks: {
+      //     0: '0°C',
+      //     8: '8°C',
+      //     37: '37°C',
+      //     50: },
       curBtn: "5日20时",
       timeBtn: ["5日20时", "5日08时", "4日20时", "4日08时", "3日20时"],
       hideTip: false,
@@ -95,7 +102,7 @@ export default {
         { name: "57926", value: ["107.883333", "25.416667"] },
         { name: "57916", value: ["106.766667", "25.433333"] },
         { name: "57912", value: ["106.633333", "26.133333"] },
-        { name: "57827", value: ["107.050000", "26.316667"] }
+        { name: "57827", value: ["107.500000", "26.316667"] }
       ],
       userInfo: {
         province: "",
@@ -180,13 +187,14 @@ export default {
           },
           formatter: param => {
             let td = "";
-            for (
-              let index = 0;
-              index < param.data.value[2].productList.length;
-              index++
-            ) {
-              const element = param.data.value[2].productList[index];
-              td += `<tr >
+            if (param.data.value[2]) {
+              for (
+                let index = 0;
+                index < param.data.value[2].productList.length;
+                index++
+              ) {
+                const element = param.data.value[2].productList[index];
+                td += `<tr >
                               <td>
                               ${element.R}
                               </td>
@@ -205,9 +213,9 @@ export default {
                                }
                               </td>
                             </tr>`;
-            }
-            return (
-              `<div class="tool-box">
+              }
+              return (
+                `<div class="tool-box">
                       <div class="tool-box-title">${param.name}</div>
                       <div class="tool-box-content">
                          <table >
@@ -223,8 +231,8 @@ export default {
                               </td>
                           </thead>
                           <tbody>` +
-              td +
-              `</tbody>
+                td +
+                `</tbody>
                         </table>
                         <div class="tool-box-text">预报方法：${param.data.value[2].industrialOutputValue}</div>
                         <div class="tool-box-text">起报时间：${param.data.value[2].address}</div>
@@ -234,7 +242,8 @@ export default {
                       </div>
                     </div>
                     `
-            );
+              );
+            }
           }
         },
         geo: [
@@ -327,13 +336,13 @@ export default {
     mapData: {
       handler(val) {
         console.log("val", val);
-        this.selected =
-          val && val.length > 0
-            ? val[0]
-            : {
-                data: [],
-                name: ""
-              };
+        // this.selected =
+        //   val && val.length > 0
+        //     ? val[0]
+        //     : {
+        //         data: [],
+        //         name: ""
+        //       };
         this.option.series[0].data = val;
       },
       immediate: true
@@ -551,16 +560,19 @@ export default {
       this.instance = instance;
 
       instance.on("georoam", param => {
-        this.instance.dispatchAction({
-          type: "highlight",
-          seriesName: "scatterPointer",
-          name: this.selected.name
-        });
-        instance.dispatchAction({
-          type: "showTip",
-          seriesIndex: 0,
-          name: this.selected.name
-        });
+        debugger;
+        if (this.selected.name) {
+          this.instance.dispatchAction({
+            type: "highlight",
+            seriesName: "scatterPointer",
+            name: this.selected.name
+          });
+          instance.dispatchAction({
+            type: "showTip",
+            seriesIndex: 0,
+            name: this.selected.name
+          });
+        }
       });
       instance.dispatchAction({
         type: "highlight",
